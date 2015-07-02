@@ -1,3 +1,4 @@
+//Shamelessly grabbed from https://gist.github.com/tonyhb/5819315
 package insteon
 import (
     "reflect"
