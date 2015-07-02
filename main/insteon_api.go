@@ -5,7 +5,7 @@ import (
     //"io/ioutil"
     "fmt"
     //"encoding/json"
-    "../insteon"
+    "../insteon" //use github.com/swiss/go-insteon/insteon
     //"os"
     //"strconv"
     "log"
@@ -18,23 +18,6 @@ func checkErr(err error) bool{
 	return true
     }
     return false
-}
-//func saveDevices() {
-//    dataFile, err := os.Create("save/devices.gob") 
-//    if err != nil {
-//	fmt.Println(err)
-//	os.Exit(1)
-//    }
-//    dataEncoder := gob.NewEncoder(dataFile)
-//    dataEncoder.Encode(data)
-//
-//    dataFile.Close()
-//
-//}
-func PopulateAll(){
-    insteon.DevList = insteon.GetDevices()
-    insteon.SceneList = insteon.GetScenes()
-    insteon.RoomList = insteon.GetRooms()
 }
 func searchString(s string)(dev_type string, id int, loc int){//Going to search Scene -> Device -> Room for now
     for num, scene := range insteon.SceneList {
@@ -71,7 +54,7 @@ func main(){
     //mydev := getDevices()
     //fmt.Println(mydev)
     var n insteon.Command
-    PopulateAll()
+    insteon.PopulateAll()
     search_dev := "media room lamp"
     direction := "on"
     res_type, id, loc := searchString(search_dev)
