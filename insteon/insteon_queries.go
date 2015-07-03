@@ -1,6 +1,7 @@
 package insteon
 import (
     "net/http"
+    "net/url"
     "io/ioutil"
     "log"
     "bytes"
@@ -98,3 +99,27 @@ func GetDevices() []Device {
     devList = j.DeviceList
     return devList
 }
+func Refresh_Bearer(refresh_token string)(access_token string, success bool) {
+    endpoint := "oauth2/token"
+    client := &http.Client{}
+    v := url.Values{}
+    v.Set("grant_type", "refresh_token") 
+    v.Set("refresh_token", refresh_token)
+    v.Set("client_id", Client_Id)
+    data := v.Encode()
+    //log.Println(data)
+    //log.Println(endpoint)
+    req, _ := http.NewRequest("POST", Insteon_Url + endpoint, bytes.NewBuffer([]byte(data)))
+    req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+    resp, err := client.Do(req)
+    if err != nil { success = false; return}
+    defer resp.Body.Close()
+    resp_body, err := ioutil.ReadAll(resp.Body)
+    if err != nil { success = false; return}
+    var b BearerResponse
+    err = json.Unmarshal(resp_body, &b)
+    if err != nil { success = false; return}
+    access_token = b.Access_Token
+    return 
+}
+

@@ -135,3 +135,9 @@ type Group struct {
 	SceneID			int
 }
 
+type BearerResponse struct {
+	Refresh_Token		string	`json:"refresh_token"`
+	Access_Token		string	`json:"access_token"`
+	Token_Type		string	`json:"token_type"`
+	Expires_In		int	`json:"expires_in"`
+}

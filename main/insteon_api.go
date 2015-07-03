@@ -53,24 +53,27 @@ func searchString(s string)(dev_type string, id int, loc int){//Going to search 
 func main(){
     //mydev := getDevices()
     //fmt.Println(mydev)
-    var n insteon.Command
-    insteon.PopulateAll()
-    search_dev := "media room lamp"
-    direction := "on"
-    res_type, id, loc := searchString(search_dev)
-    switch res_type{
-	case "device":
-	    n.Device_Id = id
-	    n.Level = insteon.DevList[loc].DimLevel/254 * 100
-	case "scene":
-	    n.Scene_Id = id
-	case "room":
-	    fmt.Println("Rooms are a pain")
-	}
+    test_string, _ := insteon.Refresh_Bearer(insteon.Refresh_Token)
+    fmt.Println(test_string)
+    //var n insteon.Command
+    //insteon.PopulateAll()
+    //search_dev := "media room lamp"
+    //direction := "on"
+    //res_type, id, loc := searchString(search_dev)
+    //switch res_type{
+    //    case "device":
+    //        n.Device_Id = id
+    //        n.Level = insteon.DevList[loc].DimLevel/254 * 100
+    //    case "scene":
+    //        n.Scene_Id = id
+    //    case "room":
+    //        fmt.Println("Rooms are a pain")
+    //    }
 
-    n.Command = direction
-    v := insteon.RunCommand(n)
-    fmt.Println(v)
+    //n.Command = direction
+    //v := insteon.RunCommand(n)
+    //fmt.Println(v)
+
 
 
 }
